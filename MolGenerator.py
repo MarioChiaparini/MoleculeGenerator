@@ -12,6 +12,16 @@ from keras.layers import Dense
 from keras.layers import Concatenate
 from keras import regularizers
 
+def Pair_Molecules(sdf_path, similarity_threshold=0.9):
+    list_of_mol = []
+    for file in os.listdir(sdf_path):
+        if file.endswith(".sdf"):
+            suppl = Chem.SDMolSupplier(os.path.join(sdf_path, file))
+            for molecules in suppl:
+                list_of_mol.append(molecules)
+    substructure = FindMCS(list_of_mol).smartsString
+    matches = [molecules.GetSubstructMatches(Chem.MolFromSmarts(substructure)) for mol in list_of_mol]
+    return matches
 
 #http://gdb.unibe.ch/downloads/
 smfile = "/home/ABTLUS/mario.neto/Desktop/MoleculeGenerator/gdb11_size11.smi"
