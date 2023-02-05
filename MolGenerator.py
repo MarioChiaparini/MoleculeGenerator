@@ -11,6 +11,11 @@ from keras.layers import LSTM
 from keras.layers import Dense
 from keras.layers import Concatenate
 from keras import regularizers
+from rdkit import Chem
+from rdkit.Chem import AllChem
+from rdkit.Chem.AtomPairs import Pairs 
+from rdkit.ML.Cluster import Butina
+from rdkit.Chem.rdFMCS import FindMCS
 
 def Pair_Molecules(sdf_path, similarity_threshold=0.9):
     list_of_mol = []
